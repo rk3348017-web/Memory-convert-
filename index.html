@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Memory Converter QR</title>
+</head>
+<body>
+  <h2>Scan QR to Open Memory Converter</h2>
+  <img id="qrCode" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    const url = "https://yourusername.github.io/memory-converter/";
+    QRCode.toDataURL(url)
+      .then(url => {
+        document.getElementById('qrCode').src = url;
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
+  <title>Memory Unit Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h2>Memory Unit Converter</h2>
+  <input type="number" id="numberInput" placeholder="Enter number" />
+  <select id="unitInput">
+    <option value="B">Bytes (B)</option>
+    <option value="KB">Kilobytes (KB)</option>
+    <option value="MB">Megabytes (MB)</option>
+    <option value="GB">Gigabytes (GB)</option>
+  </select>
+  <button onclick="convert()">Convert</button>
+  <p id="result"></p>
+
+  <script>
+    function convert() {
+      const number = parseFloat(document.getElementById('numberInput').value);
+      const unit = document.getElementById('unitInput').value;
+
+      if (isNaN(number)) {
+        document.getElementById('result').innerText = "Please enter a valid number.";
+        return;
+      }
+
+      let bytes;
+      switch(unit) {
+        case "B": bytes = number; break;
+        case "KB": bytes = number * 1024; break;
+        case "MB": bytes = number * 1024 ** 2; break;
+        case "GB": bytes = number * 1024 ** 3; break;
+      }
+
+      const kb = bytes / 1024;
+      const mb = bytes / (1024 ** 2);
+      const gb = bytes / (1024 ** 3);
+
+      document.getElementById('result').innerText =
+        `Bytes: ${bytes}\nKilobytes: ${kb}\nMegabytes: ${mb}\nGigabytes: ${gb}`;
+    }
+  </script>
+</body>
+</html>
